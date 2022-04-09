@@ -1,0 +1,10 @@
+version = 0.1
+[default]
+[default.deploy]
+[default.deploy.parameters]
+stack_name = "third-circuit-arg-rss"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-nd5zi0i1a5se"
+s3_prefix = "third-circuit-arg-rss"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+image_repositories = []

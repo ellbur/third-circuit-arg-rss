@@ -1,0 +1,13 @@
+{
+  "name": "delete-test-01",
+  "description": "delete-test-01-description",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "axios": "0.26.1",
+    "xml2js": "0.4.23",
+    "node-html-parser": "5.3.3"
+  },
+  "type": "module"
+}
+

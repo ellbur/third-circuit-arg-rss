@@ -1,0 +1,30 @@
+
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  third-circuit-arg-rss
+
+Transform:
+- AWS::Serverless-2016-10-31
+
+Resources:
+  getRSSFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/handler.getRSS
+      Runtime: nodejs14.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /rss.xml
+            Method: GET
+   
+Outputs:
+  WebEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+      
