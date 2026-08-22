@@ -1,12 +1,11 @@
 {
-  "name": "delete-test-01",
-  "description": "delete-test-01-description",
+  "name": "third-circuit-arg-rss",
+  "description": "RSS feed of Third Circuit Court of Appeals oral argument recordings",
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "axios": "0.26.1",
-    "xml2js": "0.4.23",
-    "node-html-parser": "5.3.3"
+    "xml2js": "0.6.2",
+    "node-html-parser": "9.0.1"
   },
   "type": "module"
 }
