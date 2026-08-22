@@ -1,22 +1,17 @@
 version: 0.2
 phases:
   install:
-    commands:
-      # Install all dependencies (including dependencies for running tests)
-      - npm install
-  pre_build:
-    commands:
-      # Discover and run unit tests in the '__tests__' directory
-      - npm run test
-      # Remove all unit tests to reduce the size of the package that will be ultimately uploaded to Lambda
-      - rm -rf ./__tests__
-      # Remove all dependencies not needed for the Lambda deployment package (the packages from devDependencies in package.json)
-      - npm prune --production
+    runtime-versions:
+      # Match the Lambda runtime in template.yaml. Needs a CodeBuild image that
+      # ships Node 22, e.g. aws/codebuild/amazonlinux2-x86_64-standard:5.0.
+      nodejs: 22
   build:
     commands:
-      # Use AWS SAM to package the application by using AWS CloudFormation
-      - aws cloudformation package --template template.yaml --s3-bucket $S3_BUCKET --output-template template-export.yml
-artifacts:
-  type: zip
-  files:
-    - template-export.yml
+      # sam build stages the handler and installs production dependencies into
+      # .aws-sam/build on its own, so there is no separate npm install or
+      # prune step here to drift out of sync with package.json.
+      - sam build
+      # Stack name, artifact bucket, region and capabilities all come from
+      # samconfig.toml. Tolerate an empty changeset so that re-running the
+      # build with no source changes reports success instead of failing.
+      - sam deploy --no-confirm-changeset --no-fail-on-empty-changeset

@@ -15,7 +15,10 @@ Resources:
       Architectures:
         - x86_64
       MemorySize: 128
-      Timeout: 100
+      # API Gateway gives up on a REST integration at 29s, so anything past
+      # that is billed but unreachable. One fetch and a parse takes well under
+      # a second warm, ~3s cold.
+      Timeout: 29
       Events:
         Api:
           Type: Api
